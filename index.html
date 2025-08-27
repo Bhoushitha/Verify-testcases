@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Automated Test Case Runner</title>
+  <link rel="stylesheet" href="index.css">
+  
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 Automated Test Runner</h1>
+      <p>Test your HTML/CSS/JS solutions with live preview and automated validation</p>
+    </div>
+
+    <div class="main-content">
+      <div class="code-section">
+        <div class="row">
+          <div class="input-group">
+            <label for="htmlCode">HTML Code</label>
+            <textarea id="htmlCode" placeholder="Paste your FULL HTML document here (exactly as-is)">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Interest Calculator</title>
+  <!-- If your tests need jQuery inside the iframe, keep this line: -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Simple Interest Calculator</h1>
+    <div class="calculator">
+      <div class="input-group">
+        <label for="principal">Principal Amount:</label>
+        <input type="number" id="principal" placeholder="Enter principal amount">
+      </div>
+      <div class="input-group">
+        <label for="rate">Rate of Interest (%):</label>
+        <input type="number" id="rate" placeholder="Enter rate of interest">
+      </div>
+      <div class="input-group">
+        <label for="time">Time Period (Years):</label>
+        <input type="number" id="time" placeholder="Enter time period in years">
+      </div>
+      <div class="operations">
+        <button id="calculate">Calculate</button>
+      </div>
+      <div class="result-container">
+        <h2><span id="result">-</span></h2>
+        <p id="calculation-steps">Enter the details and click Calculate</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+            </textarea>
+          </div>
+
+          <div class="input-group">
+            <label for="cssCode">CSS Code</label>
+            <textarea id="cssCode" placeholder="Paste ONLY your CSS here (no <style> tag)">
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto',sans-serif; }
+body { background-color:#f5f5f5; padding:20px; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+.container { width:400px; background-color:#fff; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); padding:25px; }
+h1 { text-align:center; color:#333; margin-bottom:20px; font-weight:bold; font-size:24px; }
+.calculator { margin-bottom:20px; }
+.input-group { margin-bottom:15px; }
+label { display:block; margin-bottom:5px; color:#555; font-weight:bold; }
+input { width:100%; padding:10px; border:1px solid #ddd; border-radius:5px; font-size:16px; }
+input:focus { outline:none; border-color:#4c84ff; }
+.operations { display:flex; }
+button { flex:1; padding:10px; background-color:#4c84ff; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
+button:hover { background-color:#3a6edb; }
+.result-container { background-color:#f8f9fa; padding:15px; border-radius:5px; text-align:center; }
+h2 { color:#333; }
+#calculation-steps { color:#555; }
+            </textarea>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="jsCode">JavaScript Code</label>
+          <textarea id="jsCode" placeholder="Paste ONLY your JavaScript here (no <script> tag)">
+const principalInput = document.getElementById('principal');
+const rateInput = document.getElementById('rate');
+const timeInput = document.getElementById('time');
+const resultElement = document.getElementById('result');
+const calculationSteps = document.getElementById('calculation-steps');
+const calculateButton = document.getElementById('calculate');
+
+calculateButton.addEventListener('click', calculateSimpleInterest);
+
+function calculateSimpleInterest() {
+  const principal = principalInput.value.trim();
+  const rate = rateInput.value.trim();
+  const time = timeInput.value.trim();
+
+  if (principal === "" || rate === "" || time === "") {
+    resultElement.textContent = 'Error';
+    calculationSteps.textContent = 'Please enter all the numbers.';
+    return;
+  }
+
+  if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+    resultElement.textContent = 'Error';
+    calculationSteps.textContent = 'Please enter all the numbers.';
+    return;
+  }
+
+  const simpleInterest = (Number(principal) * Number(rate) * Number(time)) / 100;
+  resultElement.textContent = `Simple Interest: ${simpleInterest.toFixed(0)}`;
+  calculationSteps.textContent = '';
+}
+          </textarea>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-primary" onclick="updatePreview()">🔄 Update Preview</button>
+          <button class="btn btn-primary" onclick="runTests()">🧪 Run All Tests</button>
+          <button class="btn btn-secondary" onclick="clearResults()">🗑️ Clear Results</button>
+        </div>
+
+        <div class="input-group">
+          <label for="testCases">Test Cases JSON</label>
+          <textarea id="testCases" placeholder="Paste your test cases JSON here...">[
+  {
+    "id": "1",
+    "display_text": "Valid calculation test",
+    "criteria": "function testGivenInstructions(){const isnum1Input=$('#htmlPreview').find('#principal').length===1;const isnum2Input=$('#htmlPreview').find('#rate').length===1;const isnum3Input=$('#htmlPreview').find('#time').length===1;const isCalculateBtnExists=$('#htmlPreview').find('#calculate').length===1;const isAreaResultExists=$('#htmlPreview').find('#result').length===1;const isCalculationStepsExists=$('#htmlPreview').find('#calculation-steps').length===1;const isGivenInstructionsPassed=isnum1Input&&isnum2Input&&isnum3Input&&isCalculateBtnExists&&isAreaResultExists&&isCalculationStepsExists;assert(isGivenInstructionsPassed===true);return isGivenInstructionsPassed;}function testCalculate(){const num1Input=$('#principal');const num2Input=$('#rate');const num3Input=$('#time');const calculateBtn=$('#calculate');const calculationSteps=$('#calculation-steps');const Result=$('#result');num1Input.val(1000);num2Input.val(10);num3Input.val(2);calculateBtn.click();const testCase_1=Result.text()==='Simple Interest: 200'&&calculationSteps.text()==='';const expectedOutput=testCase_1;assert(expectedOutput===true);}const isGivenInstructionsPassed=testGivenInstructions();if(isGivenInstructionsPassed){testCalculate();}",
+    "order": 1
+  }
+]</textarea>
+        </div>
+      </div>
+
+      <div class="preview-section">
+        <iframe id="preview" class="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+
+        <div id="testResults" class="test-results">
+          <div class="test-summary">
+            <h3>📊 Test Results Summary</h3>
+            <p style="color:#6b7280; margin-bottom:20px;">Click "Run All Tests" to validate your solution</p>
+            <div class="test-stats">
+              <div class="stat"><div class="stat-number total" id="totalTests">0</div><div class="stat-label">Total</div></div>
+              <div class="stat"><div class="stat-number passed" id="passedTests">0</div><div class="stat-label">Passed</div></div>
+              <div class="stat"><div class="stat-number failed" id="failedTests">0</div><div class="stat-label">Failed</div></div>
+            </div>
+          </div>
+          <div id="testCaseResults"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- host-page jQuery (for this UI only; tests use iframe's environment) -->
+   <script src="index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ 
+</body>
+</html>
